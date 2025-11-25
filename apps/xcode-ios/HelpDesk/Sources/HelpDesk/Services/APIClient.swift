@@ -74,6 +74,29 @@ public actor APIClient {
         self.refreshToken = nil
     }
     
+    // MARK: - Error Message Extraction
+    
+    /// Extracts error message from API response data
+    private func extractErrorMessage(from data: Data) -> String? {
+        // Try to decode as a simple message object
+        if let response = try? decoder.decode([String: String].self, from: data),
+           let message = response["message"] {
+            return message
+        }
+        
+        // Try to decode as a more complex error response
+        struct ErrorResponse: Decodable {
+            let message: String?
+            let error: String?
+        }
+        
+        if let response = try? decoder.decode(ErrorResponse.self, from: data) {
+            return response.message ?? response.error
+        }
+        
+        return nil
+    }
+    
     // MARK: - Request Methods
     
     public func get<T: Decodable>(_ path: String, queryItems: [URLQueryItem]? = nil) async throws -> T {
@@ -160,7 +183,7 @@ public actor APIClient {
             
             // Handle other error status codes
             guard 200..<300 ~= httpResponse.statusCode else {
-                let message = try? decoder.decode([String: String].self, from: data)["message"]
+                let message = extractErrorMessage(from: data)
                 throw APIError.httpError(statusCode: httpResponse.statusCode, message: message)
             }
             

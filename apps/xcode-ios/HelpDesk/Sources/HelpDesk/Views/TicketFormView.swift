@@ -352,7 +352,8 @@ struct FlexibleGrid<Data: RandomAccessCollection, Content: View>: View where Dat
         var height = CGFloat.zero
         
         return ZStack(alignment: .topLeading) {
-            ForEach(Array(data.enumerated()), id: \.element) { _, item in
+            ForEach(Array(data.enumerated()), id: \.element) { index, item in
+                let isLast = index == data.count - 1
                 content(item)
                     .padding(.horizontal, spacing / 2)
                     .padding(.vertical, spacing / 2)
@@ -362,7 +363,7 @@ struct FlexibleGrid<Data: RandomAccessCollection, Content: View>: View where Dat
                             height -= dimension.height
                         }
                         let result = width
-                        if item == data.last! {
+                        if isLast {
                             width = 0
                         } else {
                             width -= dimension.width
@@ -371,7 +372,7 @@ struct FlexibleGrid<Data: RandomAccessCollection, Content: View>: View where Dat
                     }
                     .alignmentGuide(.top) { _ in
                         let result = height
-                        if item == data.last! {
+                        if isLast {
                             height = 0
                         }
                         return result

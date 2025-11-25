@@ -12,13 +12,17 @@ public struct AppConfig {
         
         #if DEBUG
         // For iOS simulator, use localhost
-        // For device, use your machine's IP address
+        // For physical device testing, replace with your development machine's IP address
+        // You can find your IP with: ifconfig | grep "inet " | grep -v 127.0.0.1
         #if targetEnvironment(simulator)
         return "http://localhost:4000"
         #else
-        return "http://192.168.1.100:4000" // Change to your dev machine IP
+        // TODO: Replace with your development machine's local IP address for device testing
+        // Example: return "http://192.168.x.x:4000"
+        return "http://localhost:4000"
         #endif
         #else
+        // Production backend URL
         return "https://helpdesk-backend.fly.dev"
         #endif
     }

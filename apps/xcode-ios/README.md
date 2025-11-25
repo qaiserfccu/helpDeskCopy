@@ -141,13 +141,15 @@ The app listens for the following Socket.IO events:
 
 ## Demo Accounts
 
-Pre-configured demo accounts for quick testing:
+Pre-configured demo accounts for **development and testing only**:
 
 | Role | Email | Password |
 |------|-------|----------|
 | User | user@helpdesk.local | 12345@ |
 | Agent | agent@helpdesk.local | 12345@ |
 | Admin | admin@helpdesk.local | 12345@ |
+
+> ⚠️ **Security Note**: These credentials are for local development environments only. Never use default or demo credentials in production. Always configure secure, unique credentials for production deployments.
 
 ## Contributing
 

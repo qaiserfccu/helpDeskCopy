@@ -5,8 +5,15 @@ import SwiftUI
 public struct LoginView: View {
     @EnvironmentObject var authStore: AuthStore
     
+    // Pre-filled with demo credentials for development convenience
+    // In production builds, these should be empty strings
+    #if DEBUG
     @State private var email = "admin@helpdesk.local"
     @State private var password = "ChangeMe123!"
+    #else
+    @State private var email = ""
+    @State private var password = ""
+    #endif
     @State private var isSubmitting = false
     @State private var errorMessage: String?
     
