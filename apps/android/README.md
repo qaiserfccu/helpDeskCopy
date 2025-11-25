@@ -87,9 +87,10 @@ app/src/main/java/com/helpdesk/app/
    - Default: `http://10.0.2.2:4000` (Android emulator localhost)
 
 3. **Build**
-   ```bash
-   ./gradlew assembleDebug
-   ```
+   - Open the project in Android Studio (recommended)
+   - Android Studio will automatically generate the Gradle wrapper
+   - Or manually generate the wrapper: `gradle wrapper --gradle-version=8.5`
+   - Then build: `./gradlew assembleDebug`
 
 4. **Run**
    - Open in Android Studio

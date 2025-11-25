@@ -454,8 +454,10 @@ private fun ActivityRow(activity: TicketActivityEntry) {
 
 private fun formatTime(iso: String): String {
     return try {
-        val date = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.getDefault()).parse(iso)
-        java.text.SimpleDateFormat("h:mm a", java.util.Locale.getDefault()).format(date!!)
+        val inputFormat = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.getDefault())
+        val outputFormat = java.text.SimpleDateFormat("h:mm a", java.util.Locale.getDefault())
+        val date = inputFormat.parse(iso) ?: return iso
+        outputFormat.format(date)
     } catch (e: Exception) {
         iso
     }
